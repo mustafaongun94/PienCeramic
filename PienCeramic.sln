@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33913.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PienCeramic", "PienCeramic\PienCeramic.csproj", "{127B9F1B-D490-411D-8C7E-9D966D4F23C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PienCeramic", "PienCeramic\PienCeramic.csproj", "{127B9F1B-D490-411D-8C7E-9D966D4F23C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PienCeramic.Models", "PienCeramic.Models\PienCeramic.Models.csproj", "{F8CD6126-71CA-41D7-A665-7F141EB2297F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PienCeramic.DataAccess", "PienCeramic.DataAccess\PienCeramic.DataAccess.csproj", "{3A4FDEA0-B1C0-4F82-9EC2-998446F39E30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PienCeramic.Utility", "PienCeramic.Utility\PienCeramic.Utility.csproj", "{C4E77E42-90A0-40BD-A18B-ECA1C69A7FF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{127B9F1B-D490-411D-8C7E-9D966D4F23C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127B9F1B-D490-411D-8C7E-9D966D4F23C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127B9F1B-D490-411D-8C7E-9D966D4F23C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8CD6126-71CA-41D7-A665-7F141EB2297F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8CD6126-71CA-41D7-A665-7F141EB2297F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8CD6126-71CA-41D7-A665-7F141EB2297F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8CD6126-71CA-41D7-A665-7F141EB2297F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4FDEA0-B1C0-4F82-9EC2-998446F39E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4FDEA0-B1C0-4F82-9EC2-998446F39E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4FDEA0-B1C0-4F82-9EC2-998446F39E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4FDEA0-B1C0-4F82-9EC2-998446F39E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E77E42-90A0-40BD-A18B-ECA1C69A7FF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E77E42-90A0-40BD-A18B-ECA1C69A7FF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E77E42-90A0-40BD-A18B-ECA1C69A7FF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E77E42-90A0-40BD-A18B-ECA1C69A7FF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
