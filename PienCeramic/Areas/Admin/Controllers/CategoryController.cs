@@ -1,63 +1,71 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PienCeramic.Data;
+using PienCeramic.DataAccess.Repository.IRepository;
 using PienCeramic.Models;
+using PienCeramic.Models.ViewModels;
 
-namespace PienCeramic.Controllers
-{   
+namespace PienCeramic.Areas.Admin.Controllers
+{
+    [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly IUnitofWork _unitofWork;
+
+        public CategoryController(IUnitofWork unitofWork)
         {
-            _db = db;   
+            _unitofWork = unitofWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _unitofWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category obj) 
+        public IActionResult Create(Category obj)
         {
             //if (obj.Name == obj.DisplayOrder.ToString())
             //{
             //    ModelState.AddModelError("name", "Display Order ile category Name aynı olamaz.");
             //}
-            if (ModelState.IsValid) { 
-            _db.Categories.Add(obj);
-            _db.SaveChanges();
-            TempData["success"] = "Kategori bilgileri başarıyla eklendi.";
-            return RedirectToAction("Index");
+
+            
+            if (ModelState.IsValid)
+            {
+                _unitofWork.Category.Add(obj);
+                _unitofWork.Save();
+                TempData["success"] = "Kategori bilgileri başarıyla eklendi.";
+                return RedirectToAction("Index");
             }
             return View();
         }
         public IActionResult Edit(int? id)
-        {   
-            if(id==null || id==0 )
-            {   
-                    return NotFound();
-                
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+
             }
-            Category categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id); 
-            if(categoryFromDb == null)
+            Category categoryFromDb = _unitofWork.Category.Get(c => c.Id == id);
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
             return View(categoryFromDb);
-                
+
         }
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitofWork.Category.Update(obj);
+                _unitofWork.Save();
                 TempData["success"] = "Kategori bilgileri başarıyla güncellendi";
                 return RedirectToAction("Index");
             }
@@ -71,7 +79,7 @@ namespace PienCeramic.Controllers
                 return NotFound();
 
             }
-            Category categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
+            Category categoryFromDb = _unitofWork.Category.Get(c => c.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -82,13 +90,13 @@ namespace PienCeramic.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _unitofWork.Category.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitofWork.Category.Remove(obj);
+            _unitofWork.Save();
             TempData["success"] = "Kategori silme işlemi tamamlandı.";
             return RedirectToAction("Index");
         }

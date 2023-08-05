@@ -8,11 +8,11 @@ using PienCeramic.Data;
 
 #nullable disable
 
-namespace PienCeramic.Migrations
+namespace PienCeramic.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230719145418_CategoriesTabloToDb")]
-    partial class CategoriesTabloToDb
+    [Migration("20230721180525_AddCategoryToDbSeedTable")]
+    partial class AddCategoryToDbSeedTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,11 +37,32 @@ namespace PienCeramic.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DisplayOrder = 1,
+                            Name = "Cup"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DisplayOrder = 2,
+                            Name = "Plate"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DisplayOrder = 3,
+                            Name = "Mug"
+                        });
                 });
 #pragma warning restore 612, 618
         }
