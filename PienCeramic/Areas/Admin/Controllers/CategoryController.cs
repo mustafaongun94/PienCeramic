@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PienCeramic.Data;
 using PienCeramic.DataAccess.Repository.IRepository;
 using PienCeramic.Models;
 using PienCeramic.Models.ViewModels;
+using PienCeramic.Utility;
 
 namespace PienCeramic.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)] 
     public class CategoryController : Controller
     {
         private readonly IUnitofWork _unitofWork;
