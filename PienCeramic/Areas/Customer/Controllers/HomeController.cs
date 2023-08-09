@@ -1,7 +1,10 @@
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PienCeramic.DataAccess.Repository.IRepository;
 using PienCeramic.Models;
 using System.Diagnostics;
+using System.Security.Claims;
+
 
 namespace PienCeramic.Areas.Customer.Controllers
 {
@@ -10,6 +13,7 @@ namespace PienCeramic.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitofWork _unitOfWork;
+
 
         public HomeController(ILogger<HomeController> logger, IUnitofWork unitOfWork)
         {
@@ -24,10 +28,41 @@ namespace PienCeramic.Areas.Customer.Controllers
             return View(productList);
         }
 
-        public IActionResult Details(int productId)
-        {
-            Product product = _unitOfWork.Product.Get(u=>u.Id==productId, includeProperties: "Category");
-            return View(product);
+        public IActionResult Details(int productId) {
+            ShoppingCart cart = new()
+            {
+                Product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category"),
+                Count = 1,
+                ProductId = productId
+            };
+            return View(cart);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        { 
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = userId;
+
+            ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId);
+
+            if (cartFromDb != null) {
+
+                cartFromDb.Count += shoppingCart.Count;
+                _unitOfWork.ShoppingCart.Update(cartFromDb);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.Add(shoppingCart);
+            }
+
+            TempData["success"] = "Sepetiniz başarıyla güncellendi";
+
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
