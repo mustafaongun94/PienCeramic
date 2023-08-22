@@ -127,8 +127,8 @@ namespace PienCeramic.Areas.Admin.Controllers
 
                 return Json(new { success = true, message = "Silme işlemi başarılı" });
             }
+		}
+		#endregion
 
-            #endregion
-        }
-    }
+	}
 }

@@ -1,0 +1,8 @@
+﻿@model int
+
+
+<h2>
+    Sipariş numaranız:  @Model
+    Siparişiniz başarıyla gerçekleşti.
+</h2>
+<a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-orderId="@Model" class="btn btn-primary"> Sipariş Detaylarına Geri Dön </a>

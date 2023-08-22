@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PienCeramic.Data;
 
@@ -11,9 +12,11 @@ using PienCeramic.Data;
 namespace PienCeramic.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230812212206_SessionIdAdded")]
+    partial class SessionIdAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,7 +250,7 @@ namespace PienCeramic.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
@@ -299,7 +302,7 @@ namespace PienCeramic.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("PienCeramic.Models.OrderDetail", b =>
@@ -328,7 +331,7 @@ namespace PienCeramic.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("PienCeramic.Models.OrderHeader", b =>
@@ -366,8 +369,8 @@ namespace PienCeramic.DataAccess.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("PaymentDueDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("PaymentDueDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentIntentId")
                         .HasColumnType("nvarchar(max)");
@@ -404,7 +407,7 @@ namespace PienCeramic.DataAccess.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("OrderHeaders", (string)null);
+                    b.ToTable("OrderHeaders");
                 });
 
             modelBuilder.Entity("PienCeramic.Models.Product", b =>
@@ -450,7 +453,7 @@ namespace PienCeramic.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -544,7 +547,7 @@ namespace PienCeramic.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("PienCeramic.Models.ApplicationUser", b =>
